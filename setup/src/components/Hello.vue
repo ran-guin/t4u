@@ -6,7 +6,7 @@
     div.body.container
       div.overlay
         div.subheader
-          CustomMenu(:links='links' type='function' :onClick="chooseType" :active="active_type")
+          CustomMenu(prefix="<b>T4U Teas: </b>" :links='links' type='function' :onClick="chooseType" :options='options')
         div.navbar-right
           Cart(:cart="cart" :add="add2cart")
         div.col-md-4
@@ -64,7 +64,8 @@ export default {
         {id: 4, name: 'Pu Ehr', type: 'Black', variety: 'Pu Ehr', description: 'Classic Pu Ehr', price100g: '45.00', price200g: '82.00'}
       ],
       links: [{Black: 'Black', Green: 'Green', Red: 'Rooibos'}],
-      active_type: 'Mission'
+      options: {default: 'Black', colour: 'blue', hoverColour: 'red'},
+      active_type: 'Black'
     }
   },
   computed: {
@@ -118,6 +119,14 @@ $subheader-background-colour: transparent;
 $footer-height: 90px;
 $footer-background-colour: transparent;
 
+/*.page { 
+  background: url("/static/images/teapour.jpeg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+*/
 .page {
   /*margin-top: -20px;*/
   height: 100%;
@@ -154,6 +163,16 @@ $footer-background-colour: transparent;
   z-index: 10000;
 }
 
+.relative {
+  position: relative;
+}
+
+@media screen and (max-width: 512px) { /* Specific to this particular image */
+  img.bg {
+    display: none;
+  }
+}
+
 img.bg {
   z-index: -1;
   /* Set rules to fill background */
@@ -181,6 +200,7 @@ img.bg {
   left: 0;
 }
 
+
 @media screen and (max-width: 1024px) { /* Specific to this particular image */
   img.bg {
     left: 50%;
@@ -197,15 +217,6 @@ img.bg {
   color: #333;
   /*text-align: center;*/
   z-idex:1000;
-}
-
-.cart {
-  position: fixed;
-  right: 20px;
-  background-color: #999;
-  padding: 10px;
-  border: 1px solid black;
-  margin: 10px;
 }
 
 h1, h2 {
