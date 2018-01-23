@@ -1,7 +1,7 @@
 <template lang='pug'>
   div.page
     div.body
-      div.overlay
+      div
         div.navbar-left
           CustomMenu(direction='horizontal' :links='links' type='function' :onClick="chooseType" :options='options')
         div(style='width:100%')
@@ -19,16 +19,14 @@
                 Teas(:teas="teas" :page="page" :add="add2cart" :type="active_type")
               td
                 Cart(:cart="cart" :add="add2cart")
-
-
     div.footer
       PublicFooter
 
 </template>
 
 <script>
-import PublicHeader from './../PublicHeader'
-import PublicFooter from './../PublicFooter'
+import PublicHeader from './PublicHeader'
+import PublicFooter from './PublicFooter'
 import Teas from './Teas'
 import CustomMenu from './../Standard/Menu'
 import Cart from './../Standard/Cart'
@@ -239,6 +237,7 @@ $footer-background-colour: transparent;
 }
 .footer {
   background-color: $footer-background-colour;
+  color: white;
   height: $footer-height;
 
   position: fixed;
@@ -347,7 +346,7 @@ ul {
 }
 
 li {
-  color: black;
+  /*color: black;*/
   /*display: inline-block;*/
   /*margin: 0 10px;*/
 }
