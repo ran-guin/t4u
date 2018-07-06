@@ -7,12 +7,18 @@
       meta(name='viewport' content='width=device-width, initial-scale=1.0')
       link(rel="shortcut icon" :href='ico')
 
-    div.publicHeader
-      span.navbar-left
-      span.navbar-centre(v-if="centre" v-html="centre")
+    div.col-md-6
+      b Here
+    <!-- div.publicHeader -->
+    div.col-md-6
+      <!-- span.navbar-left -->
+      <!-- span.navbar-centre(v-if="centre" v-html="centre") -->
       span.navbar-right
-        span(v-if='right' v-html="right")
+        <!-- span(v-if='right' v-html="right") -->
         span &nbsp; &nbsp;
+        LoginPopup(icon='bars' :payload='payload') &nbsp; &nbsp; 
+
+
  </template>
 
 
