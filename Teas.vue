@@ -26,11 +26,12 @@ export default {
       info_options: {
         access_type: 'view',
         table: 'tea',
-        access: 'read',
-        fields: [{name: 'name'}],
+        access: 'edit',
+        fields: [ {name: 'name'}, {name: 'type'}, {name: 'variety'}, {name: 'description'} ],
         close: 'Cancel',
         toggle: false,
         onPick: this.teaInfo,
+        key: 'info-modal',
         addLinks: [
             {type: 'button', name: 'Add to Cart', onPick: this.add2Cart}
         ]
@@ -49,9 +50,10 @@ export default {
 
     teaInfo: function (record) {
       console.log('retrieve more schedule info from record: ' + JSON.stringify(record))
-
-      this.$store.dispatch('setModalData', record)
-      this.$store.getters.toggleModal('info-modal')
+      var data = [record]
+      this.$store.dispatch('setModalData', data)
+      // this.$store.getters.toggleModal('infox`-modal')
+      this.$store.dispatch('toggleModal', 'info-modal')
     },
 
     add2Cart (item) {
