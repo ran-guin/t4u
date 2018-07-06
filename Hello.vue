@@ -2,14 +2,18 @@
   div.page
     div.body
       div
-        div.navbar-left
-          CustomMenu(direction='horizontal' :links='links' type='function' :onClick="chooseType" :options='options')
-        div(style='width:100%')
-          div.navbar-right
-            button(@click.prevent='uploadTeas') Upload Teas
-            span &nbsp; &nbsp;
-            span &nbsp; &nbsp;
-            Modal(id='search-modal' type='search' :options="search_options" :picked="selected" :onDelete='deleteItem')
+        div.container
+          span.navbar-left
+            CustomMenu(direction='horizontal' :links='links' type='function' :onClick="chooseType" :options='options')
+          span.navbar-right
+            table.table(style='margin: 0px')
+              tr
+                td
+                  LoginButton() &nbsp; &nbsp; 
+                  b U: {{count}}
+                  <!-- Modal(id='search-modal' type='search' :options="search_options" :picked="selected" :onDelete='deleteItem') -->
+                td
+                  SearchButton()
           table.table
             tr
               td(colspan=2)
@@ -27,6 +31,8 @@
 <script>
 import PublicHeader from './PublicHeader'
 import PublicFooter from './PublicFooter'
+import LoginButton from './../Standard/LoginButton'
+import SearchButton from './../Standard/SearchButton'
 import Teas from './Teas'
 import CustomMenu from './../Standard/Menu'
 import Cart from './../Standard/Cart'
@@ -47,6 +53,8 @@ export default {
     PublicHeader,
     CustomMenu,
     PublicFooter,
+    SearchButton,
+    LoginButton,
     Teas,
     Cart,
     Modal
@@ -71,7 +79,7 @@ export default {
         {id: 5, name: 'Oolong', type: 'Green', variety: 'Oolong', description: 'Classic Oolong', price100g: '55.00', price200g: '93.00', qty: 1, amount: '12.00'},
         {id: 6, name: 'Rooibos - Honeybush', type: 'Rooibos', variety: 'Rooibos', description: 'Classic Rooibos - Honeybush', price100g: '55.00', price200g: '93.00', qty: 1, amount: '12.00'}
       ],
-      links: [{Black: 'Black', Green: 'Green', Red: 'Rooibos'}],
+      links: [{Black: 'Black', Green: 'Green', White: 'White', Red: 'Rooibos', '|': '', Accessories: 'Accessories'}],
       options: {default: 'Black', colour: 'blue', hoverColour: 'red'},
       active_type: 'Black',
 
@@ -112,6 +120,9 @@ export default {
     }
   },
   computed: {
+    count: function () {
+      return this.$store.getters.modalUpdates
+    },
     selectedTeas: function () {
       return [{name: 'Selected', description: 'fill desc', variety: 'tea v'}]
     },
@@ -152,11 +163,12 @@ export default {
       ]
 
       this.$store.dispatch('setModalData', data)
-      this.$store.getters.toggleModal('info-modal')
+      console.log('Data:' + JSON.stringify(data))
+      this.$store.dispatch('toggleModal', 'info-modal')
     },
 
     toggleSearch: function (record) {
-      this.$store.getters.toggleModal('info-modal')
+      this.$store.dispatch('toggleModal', 'info-modal')
     },
 
     deleteItem: function (index, key) {
