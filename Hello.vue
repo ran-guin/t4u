@@ -9,8 +9,7 @@
             table.table(style='margin: 0px')
               tr
                 td
-                  LoginButton() &nbsp; &nbsp; 
-                  b U: {{count}}
+                  LoginButton(:payload="payload") &nbsp; &nbsp; 
                   <!-- Modal(id='search-modal' type='search' :options="search_options" :picked="selected" :onDelete='deleteItem') -->
                 td
                   SearchButton()
@@ -123,6 +122,18 @@ export default {
     count: function () {
       return this.$store.getters.modalUpdates
     },
+    payload: function () {
+      var payload = this.$store.getters.payload || null
+      if (payload && payload.constructor === Object) {
+        console.log('payload: ' + payload)
+        return payload
+      } else if (payload && payload.constructor === String) {
+        console.log('payload: ' + payload)
+        return JSON.parse(payload)
+      } else {
+        return { access: 'public' }
+      }
+    },
     selectedTeas: function () {
       return [{name: 'Selected', description: 'fill desc', variety: 'tea v'}]
     },
@@ -135,7 +146,6 @@ export default {
       for (var i = 0; i < ids.length; i++) {
         count += this.cart[ids[i]].qty
       }
-
       return count
     }
   },
